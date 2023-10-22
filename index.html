@@ -44,7 +44,32 @@
     <!-- Form fields -->
     <input type="file" name="image" id="image">
     <input type="submit" value="Upload Image">
-</form>
+	</form>
+	<script>
+        document.getElementById("upload-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const formData = new FormData();
+            const fileInput = document.getElementById("file-input");
+
+            if (fileInput.files.length > 0) {
+                formData.append("image", fileInput.files[0]);
+
+                fetch("https://your-backend-url.com/upload", {
+                    method: "POST",
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(data => {
+                    // Handle the response from your server
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+            }
+        });
+    </script>
     </div>
   </div>
   <div id="footer">
